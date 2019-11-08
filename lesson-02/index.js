@@ -69,3 +69,18 @@ function showError(section) {
   section.classList.add('Container_Section__Error')
   setTimeout(() => alert('Please fill in a value for the field'), 100)
 }
+
+function removeErrorOnTextInput(section, element) {
+  element.addEventListener('input', ( )=> removeError(section))
+}
+
+function removeErrorOnRadioChange(section, element) {
+  const radioElements = section.querySelectorAll('input[type=radio]')
+  for (let radioElement of radioElements) {
+    radioElement.addEventListener('change', ( )=> removeError(section))
+  }
+}
+
+function removeError(section) {
+    section.classList.remove('Container_Section__Error')
+}
