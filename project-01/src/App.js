@@ -2,6 +2,7 @@ import './App.css'
 import React from 'react'
 import FormTitle from './components/FormTitle'
 import BasicInfo from './BasicInfoForm'
+import PaymentInfo from './PaymentInfoForm'
 import AddressInfoForm from './AddressInfoForm'
 import { db } from './firestore'
 import ErrorMessage from './components/ErrorMessage'
@@ -68,6 +69,8 @@ export default function App() {
           onSubmit={nextForm}
         />
       )
+    } else if (status === 2) {
+      return <PaymentInfo />
     }
   }
 
@@ -78,6 +81,9 @@ export default function App() {
           <FormTitle>Checkout</FormTitle>
 
           {formSelect()}
+          {!isOnline && (
+            <ErrorMessage label='Network is offline!!!'></ErrorMessage>
+          )}
         </div>
       </div>
     </div>
