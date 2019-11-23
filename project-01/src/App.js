@@ -21,6 +21,8 @@ export default function App() {
       first_name: firstName,
       last_name: lastName,
       diet: diet,
+      city: city,
+      province: province,
     }
     try {
       setIsSaving(true)
@@ -29,7 +31,6 @@ export default function App() {
         .then(() => {
           setIsSaving(false)
         })
-      console.log('continue')
     } catch (error) {
       console.log('===Error: saveData function===')
       console.log(error)
@@ -79,7 +80,7 @@ export default function App() {
         />
       )
     } else if (status === 2) {
-      return <PaymentInfo />
+      return <PaymentInfo onSubmit={saveData} />
     }
   }
 
