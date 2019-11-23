@@ -7,7 +7,12 @@ import FormTextInput from './components/FormTextInput'
 import FormSubmit from './components/FormSubmit'
 import ErrorMessage from './components/ErrorMessage'
 
-export default function BasicInfo({ setFirstName, setLastName }) {
+export default function BasicInfo({
+  setFirstName,
+  setLastName,
+  isSaving,
+  onClick,
+}) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
 
@@ -28,10 +33,10 @@ export default function BasicInfo({ setFirstName, setLastName }) {
       </FormField>
       {errorLabel != '' && <ErrorMessage>errorLabel</ErrorMessage>}
       <FormSubmit
-        onClick={null}
+        onClick={onClick}
         isComplete={false}
         isLoading={false}
-        isDisabled={isDisabled}
+        isDisabled={isDisabled || isSaving}
         loadingText={false}
         submitText='Next'
         completeText='Complete'
