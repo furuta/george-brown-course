@@ -7,24 +7,27 @@ import FormSubmit from './components/FormSubmit'
 import ErrorMessage from './components/ErrorMessage'
 import { Dropdown } from "react-bootstrap"
 
-export default function PaymentInfo({ setCity, setProvince, onSubmit }) {
+export default function PaymentInfo({ setPaymentMethod, setTerms, onSubmit }) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
   const [dropValue, setDropValue] = React.useState('select')
   const [payment, setPayment] = React.useState("")
   const [agreed, setAgreed] = React.useState(false)
 
-  const changeItem = item => {
-    setDropValue(item);
-    setProvince(item);
-  }
+  // const changeItem = item => {
+  //   setDropValue(item);
+  //   setProvince(item);
+  // }
 
   const agreeTerms = () => {
     agreed ? setAgreed(false) : setAgreed(true);
+    agreed ? setTerms(false) : setTerms(true);
+
   }
 
   const paymentType = (type) => {
     setPayment(type);
+    setPaymentMethod(type);
   }
 
   const check = () => {

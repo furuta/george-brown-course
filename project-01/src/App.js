@@ -14,6 +14,8 @@ export default function App() {
   const [diet, setDiet] = React.useState(null)
   const [city, setCity] = React.useState('')
   const [province, setProvince] = React.useState('')
+  const [paymentMethod, setPaymentMethod] = React.useState('')
+  const [terms, setTerms] = React.useState(false)
 
   const [isSaving, setIsSaving] = React.useState(false)
   const saveData = event => {
@@ -84,7 +86,10 @@ export default function App() {
         />
       )
     } else if (status === 2) {
-      return <PaymentInfo onSubmit={saveData} />
+      return <PaymentInfo 
+      onSubmit={saveData}
+      setPaymentMethod={setPaymentMethod}
+      setTerms={setTerms} />
     }
   }
 
