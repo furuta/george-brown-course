@@ -10,14 +10,17 @@ import { Dropdown } from 'react-bootstrap'
 
 export default function BasicInfo({
   setFirstName,
+  firstNameValue,
   setLastName,
+  lastNameValue,
   setDiet,
+  dietValue,
   onSubmit,
-  
+  isOffline,
 }) {
   const [isDisabled, setIsDisabled] = React.useState(true)
   const [errorLabel, setErrorLabel] = React.useState('')
-  const [dropValue, setDropValue] = React.useState('none')
+  const [dropValue, setDropValue] = React.useState(dietValue || 'none')
   const [firstValue, setFirstValue] = React.useState(false)
   const [lastValue, setLastValue] = React.useState(false)
 
@@ -35,17 +38,16 @@ export default function BasicInfo({
   }
 
   const onFirstChange = event => {
-    setFirstName(event.target.value);
-    if (event.target.value !== "") {
+    setFirstName(event.target.value)
+    if (event.target.value !== '') {
       setFirstValue(true)
     } else {
       setFirstValue(false)
     }
-
   }
   const onLastChange = event => {
-    setLastName(event.target.value);
-    if (event.target.value !== "") {
+    setLastName(event.target.value)
+    if (event.target.value !== '') {
       setLastValue(true)
     } else {
       setLastValue(false)
@@ -54,20 +56,30 @@ export default function BasicInfo({
 
   const check = () => {
     if (lastValue === true && firstValue === true) {
-      return false;
+      return false
     } else {
-      return true;
+      return true
     }
   }
   return (
     <FormFieldHeading>
       <FormField>
         <FormLabel htmlFor='first_name' text='First Name'></FormLabel>
-        <FormTextInput inChange={onFirstChange} id='first_name' setValue={setFirstName}></FormTextInput>
+        <FormTextInput
+          inChange={onFirstChange}
+          id='first_name'
+          setValue={setFirstName}
+          value={firstNameValue}
+        ></FormTextInput>
       </FormField>
       <FormField>
         <FormLabel htmlFor='last_name' text='Last Name'></FormLabel>
-        <FormTextInput inChange={onLastChange} id='last_name' setValue={setLastName}></FormTextInput>
+        <FormTextInput
+          inChange={onLastChange}
+          id='last_name'
+          setValue={setLastName}
+          value={lastNameValue}
+        ></FormTextInput>
       </FormField>
 
       <Dropdown>
@@ -106,7 +118,7 @@ export default function BasicInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={check}
+        isDisabled={check() || isOffline}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'
