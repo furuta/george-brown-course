@@ -7,7 +7,7 @@ import FormSubmit from './components/FormSubmit'
 import ErrorMessage from './components/ErrorMessage'
 import { Dropdown } from "react-bootstrap"
 
-export default function AddressInfo({ setCity, setProvince, onSubmit }) {
+export default function PaymentInfo({ setCity, setProvince, onSubmit }) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
   const [dropValue, setDropValue] = React.useState('select')
