@@ -1,15 +1,19 @@
 import './App.css'
 import React from 'react'
 import FormTitle from './components/FormTitle'
-import BasicInfoForm from './BasicInfoForm'
+import BasicInfo from './BasicInfoForm'
+import PaymentInfo from './PaymentInfoForm'
 import AddressInfoForm from './AddressInfoForm'
 import { db } from './firestore'
+import ErrorMessage from './components/ErrorMessage'
 
 export default function App() {
+  const [status, setStatus] = React.useState(0)
   const [firstName, setFirstName] = React.useState('')
   const [lastName, setLastName] = React.useState('')
   const [diet, setDiet] = React.useState(null)
-  console.log(firstName)
+  const [city, setCity] = React.useState('')
+  const [province, setProvince] = React.useState('')
 
   const [isSaving, setIsSaving] = React.useState(false)
   const saveData = event => {
@@ -31,6 +35,53 @@ export default function App() {
       console.log(error)
     }
   }
+  const [isOnline, setIsOnline] = React.useState(navigator.onLine)
+  React.useEffect(() => {
+    const handleOnline = () => setIsOnline(true)
+    const handleOffline = () => setIsOnline(false)
+
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
+  }, [])
+
+  const nextForm = () => {
+    if (status === 0) {
+      setStatus(1)
+    } else if (status === 1) {
+      setStatus(2)
+    }
+    console.log(status)
+    console.log(firstName)
+    console.log(lastName)
+    console.log(diet)
+  }
+  const formSelect = () => {
+    if (status === 0) {
+      return (
+        <BasicInfo
+          setFirstName={setFirstName}
+          setLastName={setLastName}
+          setDiet={setDiet}
+          onSubmit={nextForm}
+        />
+      )
+    } else if (status === 1) {
+      return (
+        <AddressInfoForm
+          setCity={setCity}
+          setProvince={setProvince}
+          onSubmit={nextForm}
+        />
+      )
+    } else if (status === 2) {
+      return <PaymentInfo />
+    }
+  }
 
   return (
     <div className='App'>
@@ -38,13 +89,10 @@ export default function App() {
         <div>
           <FormTitle>Checkout</FormTitle>
 
-          {/* Put your solution here 👇 */}
-          <BasicInfoForm
-            setFirstName={setFirstName}
-            setLastName={setLastName}
-            setDiet={setDiet}
-          ></BasicInfoForm>
-          <AddressInfoForm></AddressInfoForm>
+          {formSelect()}
+          {!isOnline && (
+            <ErrorMessage label='Network is offline!!!'></ErrorMessage>
+          )}
         </div>
       </div>
     </div>
