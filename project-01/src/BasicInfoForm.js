@@ -10,13 +10,16 @@ import { Dropdown } from 'react-bootstrap'
 
 export default function BasicInfo({
   setFirstName,
+  firstNameValue,
   setLastName,
+  lastNameValue,
   setDiet,
+  dietValue,
   onSubmit,
 }) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
-  const [dropValue, setDropValue] = React.useState('none')
+  const [dropValue, setDropValue] = React.useState(dietValue || 'none')
 
   const values = ['none', 'vegetarian', 'vegan', 'Halal/Kosher']
 
@@ -30,15 +33,24 @@ export default function BasicInfo({
     setDropValue(item)
     setDiet(item)
   }
+
   return (
     <FormFieldHeading>
       <FormField>
         <FormLabel htmlFor='first_name' text='First Name'></FormLabel>
-        <FormTextInput id='first_name' setValue={setFirstName}></FormTextInput>
+        <FormTextInput
+          id='first_name'
+          setValue={setFirstName}
+          value={firstNameValue}
+        ></FormTextInput>
       </FormField>
       <FormField>
         <FormLabel htmlFor='last_name' text='Last Name'></FormLabel>
-        <FormTextInput id='last_name' setValue={setLastName}></FormTextInput>
+        <FormTextInput
+          id='last_name'
+          setValue={setLastName}
+          value={lastNameValue}
+        ></FormTextInput>
       </FormField>
 
       <Dropdown>

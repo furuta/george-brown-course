@@ -8,12 +8,20 @@ import { db } from './firestore'
 import ErrorMessage from './components/ErrorMessage'
 
 export default function App() {
-  const [status, setStatus] = React.useState(0)
-  const [firstName, setFirstName] = React.useState('')
-  const [lastName, setLastName] = React.useState('')
-  const [diet, setDiet] = React.useState(null)
-  const [city, setCity] = React.useState('')
-  const [province, setProvince] = React.useState('')
+  const [status, setStatus] = React.useState(
+    Number(localStorage.getItem('status')) || 0,
+  )
+  const [firstName, setFirstName] = React.useState(
+    localStorage.getItem('firstName') || '',
+  )
+  const [lastName, setLastName] = React.useState(
+    localStorage.getItem('lastName') || '',
+  )
+  const [diet, setDiet] = React.useState(localStorage.getItem('diet') || 'none')
+  const [city, setCity] = React.useState(localStorage.getItem('city') || '')
+  const [province, setProvince] = React.useState(
+    localStorage.getItem('province') || '',
+  )
 
   const [isSaving, setIsSaving] = React.useState(false)
   const saveData = event => {
@@ -56,18 +64,32 @@ export default function App() {
     } else if (status === 1) {
       setStatus(2)
     }
+  }
+  React.useEffect(() => {
+    localStorage.setItem('status', status)
+    localStorage.setItem('firstName', firstName)
+    localStorage.setItem('lastName', lastName)
+    localStorage.setItem('diet', diet)
+    localStorage.setItem('city', city)
+    localStorage.setItem('province', province)
     console.log(status)
     console.log(firstName)
     console.log(lastName)
     console.log(diet)
-  }
+    console.log(city)
+    console.log(province)
+  })
+
   const formSelect = () => {
     if (status === 0) {
       return (
         <BasicInfo
           setFirstName={setFirstName}
+          firstNameValue={firstName}
           setLastName={setLastName}
+          lastNameValue={lastName}
           setDiet={setDiet}
+          dietValue={diet}
           onSubmit={nextForm}
         />
       )
@@ -75,7 +97,9 @@ export default function App() {
       return (
         <AddressInfoForm
           setCity={setCity}
+          cityValue={city}
           setProvince={setProvince}
+          provinceValue={province}
           onSubmit={nextForm}
         />
       )
