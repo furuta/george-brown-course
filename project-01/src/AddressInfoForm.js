@@ -13,6 +13,7 @@ export default function AddressInfo({
   setProvince,
   provinceValue,
   onSubmit,
+  isOffline,
 }) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
@@ -146,7 +147,7 @@ export default function AddressInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={isDisabled}
+        isDisabled={isDisabled || isOffline}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'

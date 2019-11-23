@@ -76,11 +76,6 @@ export default function App() {
     localStorage.setItem('diet', diet)
     localStorage.setItem('city', city)
     localStorage.setItem('province', province)
-    console.log(firstName)
-    console.log(lastName)
-    console.log(diet)
-    console.log(city)
-    console.log(province)
   })
 
   const formSelect = () => {
@@ -94,6 +89,7 @@ export default function App() {
           setDiet={setDiet}
           dietValue={diet}
           onSubmit={nextForm}
+          isOffline={!isOnline}
         />
       )
     } else if (status === 1) {
@@ -104,10 +100,17 @@ export default function App() {
           setProvince={setProvince}
           provinceValue={province}
           onSubmit={nextForm}
+          isOffline={!isOnline}
         />
       )
     } else if (status === 2) {
-      return <PaymentInfo onSubmit={saveData} isSaving={isSaving} />
+      return (
+        <PaymentInfo
+          onSubmit={saveData}
+          isSaving={isSaving}
+          isOffline={!isOnline}
+        />
+      )
     }
   }
 

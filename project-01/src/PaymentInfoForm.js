@@ -12,6 +12,7 @@ export default function PaymentInfo({
   setProvince,
   onSubmit,
   isSaving,
+  isOffline,
 }) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
@@ -62,7 +63,7 @@ export default function PaymentInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={isDisabled || isSaving}
+        isDisabled={isDisabled || isSaving || isOffline}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'
