@@ -3,6 +3,7 @@ import React from 'react'
 import FormTitle from './components/FormTitle'
 import BasicInfo from './BasicInfoForm'
 import AddressInfoForm from './AddressInfoForm'
+import PaymentInfo from './PaymentInfoForm'
 
 
 export default function App() {
@@ -39,6 +40,8 @@ export default function App() {
         setCity={setCity}
         setProvince={setProvince}
         onSubmit={nextForm} />);
+    } else if (status === 2) {
+      return (<PaymentInfo />);
     }
   }
   return (

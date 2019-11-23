@@ -22,32 +22,24 @@ export default function PaymentInfo({ setCity, setProvince, onSubmit }) {
 
   return (
     <FormFieldHeading>
-      <FormField>
-        <FormLabel htmlFor='city' text='City'></FormLabel>
-        <FormTextInput id='city' setValue={setCity}></FormTextInput>
-      </FormField>
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          {dropValue}
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={() => changeItem(values[0])} href="#/action-0">{values[0]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[1])} href="#/action-1">{values[1]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[2])} href="#/action-2">{values[2]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[3])} href="#/action-3">{values[3]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[4])} href="#/action-4">{values[4]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[5])} href="#/action-5">{values[5]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[6])} href="#/action-6">{values[6]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[7])} href="#/action-7">{values[7]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[8])} href="#/action-8">{values[8]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[9])} href="#/action-9">{values[9]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[10])} href="#/action-10">{values[10]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[11])} href="#/action-11">{values[11]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[12])} href="#/action-12">{values[12]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[13])} href="#/action-13">{values[13]}</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <div>
+        <input type="radio" value="bitcoin"/>
+        Bitcoin
+      </div>
+      <div>
+        <input type="radio" value="Paypal"/>
+        Paypal
+      </div>
+      <div>
+        <input type="radio" value="Credit Card"/>
+        Credit Card
+      </div>
+      <div>
+        <input type="checkbox" value={false}/>
+        Agree to Terms and Conditions
+      </div>
+      
+      
       <FormSubmit
         onClick={onSubmit}
         isComplete={false}
