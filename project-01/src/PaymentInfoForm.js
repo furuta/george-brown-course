@@ -5,52 +5,71 @@ import FormTextInput from './components/FormTextInput'
 import FormField from './components/FormField'
 import FormSubmit from './components/FormSubmit'
 import ErrorMessage from './components/ErrorMessage'
-import { Dropdown } from "react-bootstrap"
+import { Dropdown } from 'react-bootstrap'
 
-export default function PaymentInfo({ setCity, setProvince, onSubmit }) {
+export default function PaymentInfo({
+  setCity,
+  setProvince,
+  onSubmit,
+  isSaving,
+}) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
   const [dropValue, setDropValue] = React.useState('select')
 
   const changeItem = item => {
-    setDropValue(item);
-    setProvince(item);
+    setDropValue(item)
+    setProvince(item)
   }
 
-  const values = ["select", "Alberta", "British Colombia", "Manitoba", "New Brunswick", "Newfoundland", "Nova Scotia", "North West Territories", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon Territory"]
-
+  const values = [
+    'select',
+    'Alberta',
+    'British Colombia',
+    'Manitoba',
+    'New Brunswick',
+    'Newfoundland',
+    'Nova Scotia',
+    'North West Territories',
+    'Nunavut',
+    'Ontario',
+    'Prince Edward Island',
+    'Quebec',
+    'Saskatchewan',
+    'Yukon Territory',
+  ]
 
   return (
     <FormFieldHeading>
       <div>
-        <input type="radio" value="bitcoin"/>
+        <input type='radio' value='bitcoin' />
         Bitcoin
       </div>
       <div>
-        <input type="radio" value="Paypal"/>
+        <input type='radio' value='Paypal' />
         Paypal
       </div>
       <div>
-        <input type="radio" value="Credit Card"/>
+        <input type='radio' value='Credit Card' />
         Credit Card
       </div>
       <div>
-        <input type="checkbox" value={false}/>
+        <input type='checkbox' value={false} />
         Agree to Terms and Conditions
       </div>
-      
-      
+
       <FormSubmit
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={isDisabled}
+        isDisabled={isDisabled || isSaving}
         loadingText={false}
-        submitText={"next"}
+        submitText={'next'}
         completeText='Complete'
-      >Next</FormSubmit>
+      >
+        Next
+      </FormSubmit>
       {errorLabel !== '' && <ErrorMessage>errorLabel</ErrorMessage>}
-
     </FormFieldHeading>
   )
 }

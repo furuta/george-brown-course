@@ -8,9 +8,7 @@ import { db } from './firestore'
 import ErrorMessage from './components/ErrorMessage'
 
 export default function App() {
-  const [status, setStatus] = React.useState(
-    Number(localStorage.getItem('status')) || 0,
-  )
+  const [status, setStatus] = React.useState(0)
   const [firstName, setFirstName] = React.useState(
     localStorage.getItem('firstName') || '',
   )
@@ -37,7 +35,14 @@ export default function App() {
       db.collection('checkout')
         .add(data)
         .then(() => {
+          console.log('saved')
           setIsSaving(false)
+          setFirstName('')
+          setLastName('')
+          setDiet('')
+          setCity('')
+          setProvince('')
+          localStorage.clear()
         })
     } catch (error) {
       console.log('===Error: saveData function===')
@@ -66,13 +71,11 @@ export default function App() {
     }
   }
   React.useEffect(() => {
-    localStorage.setItem('status', status)
     localStorage.setItem('firstName', firstName)
     localStorage.setItem('lastName', lastName)
     localStorage.setItem('diet', diet)
     localStorage.setItem('city', city)
     localStorage.setItem('province', province)
-    console.log(status)
     console.log(firstName)
     console.log(lastName)
     console.log(diet)
@@ -104,7 +107,7 @@ export default function App() {
         />
       )
     } else if (status === 2) {
-      return <PaymentInfo onSubmit={saveData} />
+      return <PaymentInfo onSubmit={saveData} isSaving={isSaving} />
     }
   }
 
