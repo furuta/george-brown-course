@@ -61,6 +61,9 @@ export default function App() {
     console.log(lastName)
     console.log(diet)
   }
+
+  
+
   const formSelect = () => {
     if (status === 0) {
       return (
@@ -69,6 +72,7 @@ export default function App() {
           setLastName={setLastName}
           setDiet={setDiet}
           onSubmit={nextForm}
+          
         />
       )
     } else if (status === 1) {

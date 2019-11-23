@@ -11,6 +11,7 @@ export default function AddressInfo({ setCity, setProvince, onSubmit }) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
   const [dropValue, setDropValue] = React.useState('select')
+  const [cityValue, setCityValue] = React.useState(false)
 
   const changeItem = item => {
     setDropValue(item);
@@ -19,12 +20,28 @@ export default function AddressInfo({ setCity, setProvince, onSubmit }) {
 
   const values = ["select", "Alberta", "British Colombia", "Manitoba", "New Brunswick", "Newfoundland", "Nova Scotia", "North West Territories", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon Territory"]
 
+  const onCityChange = event => {
+    setCity(event.target.value);
+    if (event.target.value !== "") {
+      setCityValue(true)
+    } else {
+      setCityValue(false)
+    }
+  }
+
+  const check = () => {
+    if (cityValue === true && dropValue !== 'select') {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   return (
     <FormFieldHeading>
       <FormField>
         <FormLabel htmlFor='city' text='City'></FormLabel>
-        <FormTextInput id='city' setValue={setCity}></FormTextInput>
+        <FormTextInput inChange={onCityChange} id='city' setValue={setCity}></FormTextInput>
       </FormField>
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -52,7 +69,7 @@ export default function AddressInfo({ setCity, setProvince, onSubmit }) {
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={isDisabled}
+        isDisabled={check}
         loadingText={false}
         submitText={"next"}
         completeText='Complete'

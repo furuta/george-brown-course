@@ -13,10 +13,13 @@ export default function BasicInfo({
   setLastName,
   setDiet,
   onSubmit,
+  
 }) {
-  const [isDisabled, setIsDisabled] = React.useState(false)
+  const [isDisabled, setIsDisabled] = React.useState(true)
   const [errorLabel, setErrorLabel] = React.useState('')
   const [dropValue, setDropValue] = React.useState('none')
+  const [firstValue, setFirstValue] = React.useState(false)
+  const [lastValue, setLastValue] = React.useState(false)
 
   const values = ['none', 'vegetarian', 'vegan', 'Halal/Kosher']
 
@@ -30,15 +33,41 @@ export default function BasicInfo({
     setDropValue(item)
     setDiet(item)
   }
+
+  const onFirstChange = event => {
+    setFirstName(event.target.value);
+    if (event.target.value !== "") {
+      setFirstValue(true)
+    } else {
+      setFirstValue(false)
+    }
+
+  }
+  const onLastChange = event => {
+    setLastName(event.target.value);
+    if (event.target.value !== "") {
+      setLastValue(true)
+    } else {
+      setLastValue(false)
+    }
+  }
+
+  const check = () => {
+    if (lastValue === true && firstValue === true) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   return (
     <FormFieldHeading>
       <FormField>
         <FormLabel htmlFor='first_name' text='First Name'></FormLabel>
-        <FormTextInput id='first_name' setValue={setFirstName}></FormTextInput>
+        <FormTextInput inChange={onFirstChange} id='first_name' setValue={setFirstName}></FormTextInput>
       </FormField>
       <FormField>
         <FormLabel htmlFor='last_name' text='Last Name'></FormLabel>
-        <FormTextInput id='last_name' setValue={setLastName}></FormTextInput>
+        <FormTextInput inChange={onLastChange} id='last_name' setValue={setLastName}></FormTextInput>
       </FormField>
 
       <Dropdown>
@@ -55,19 +84,19 @@ export default function BasicInfo({
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => changeItem(values[1])}
-            href='#/action-1'
+            href='#/action-2'
           >
             {values[1]}
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => changeItem(values[2])}
-            href='#/action-2'
+            href='#/action-3'
           >
             {values[2]}
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => changeItem(values[3])}
-            href='#/action-3'
+            href='#/action-4'
           >
             {values[3]}
           </Dropdown.Item>
@@ -77,7 +106,7 @@ export default function BasicInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={isDisabled}
+        isDisabled={check}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'
