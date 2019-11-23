@@ -118,7 +118,7 @@ export default function BasicInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={check || isDisabled || isOffline}
+        isDisabled={check() || isOffline}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'

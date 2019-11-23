@@ -166,7 +166,7 @@ export default function AddressInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={check || isDisabled || isOffline}
+        isDisabled={check() || isOffline}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'

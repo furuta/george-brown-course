@@ -15,7 +15,7 @@ export default function FormSubmit({
     buttonClassName += ' FormSubmit-Button__Success'
   } else if (isLoading) {
     buttonClassName += ' FormSubmit-Button__Loading'
-  } else if (isDisabled()) {
+  } else if (isDisabled) {
     buttonClassName += ' FormSubmit-Button__Disabled'
   }
 
@@ -24,7 +24,7 @@ export default function FormSubmit({
       <button
         className={buttonClassName}
         onClick={onClick}
-        disabled={isDisabled()}
+        disabled={isDisabled}
       >
         {isComplete ? completeText : isLoading ? loadingText : submitText}
       </button>

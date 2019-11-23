@@ -76,7 +76,7 @@ export default function PaymentInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={check || isSaving || isOffline}
+        isDisabled={check() || isSaving || isOffline}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'
