@@ -3,6 +3,16 @@ import React from 'react'
 import FormTitle from './components/FormTitle'
 import BasicInfoForm from './BasicInfoForm'
 import AddressInfoForm from './AddressInfoForm'
+import { db } from './firestore'
+
+function saveData(data) {
+  try {
+    db.collection('checkout').add(data)
+  } catch (error) {
+    console.log('===Error: saveData function')
+    console.log(error)
+  }
+}
 
 export default function App() {
   const [firstName, setFirstName] = React.useState('')
