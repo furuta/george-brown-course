@@ -7,15 +7,6 @@ import AddressInfoForm from './AddressInfoForm'
 import { db } from './firestore'
 import ErrorMessage from './components/ErrorMessage'
 
-function saveData(data) {
-  try {
-    return db.collection('checkout').add(data)
-  } catch (error) {
-    console.log('===Error: saveData function')
-    console.log(error)
-  }
-}
-
 export default function App() {
   const [status, setStatus] = React.useState(0)
   const [firstName, setFirstName] = React.useState('')
@@ -24,8 +15,27 @@ export default function App() {
   const [city, setCity] = React.useState('')
   const [province, setProvince] = React.useState('')
 
-  console.log(firstName)
-
+  const [isSaving, setIsSaving] = React.useState(false)
+  const saveData = event => {
+    const data = {
+      first_name: firstName,
+      last_name: lastName,
+      diet: diet,
+      city: city,
+      province: province,
+    }
+    try {
+      setIsSaving(true)
+      db.collection('checkout')
+        .add(data)
+        .then(() => {
+          setIsSaving(false)
+        })
+    } catch (error) {
+      console.log('===Error: saveData function===')
+      console.log(error)
+    }
+  }
   const [isOnline, setIsOnline] = React.useState(navigator.onLine)
   React.useEffect(() => {
     const handleOnline = () => setIsOnline(true)
@@ -70,7 +80,7 @@ export default function App() {
         />
       )
     } else if (status === 2) {
-      return <PaymentInfo />
+      return <PaymentInfo onSubmit={saveData} />
     }
   }
 

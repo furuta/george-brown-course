@@ -6,14 +6,19 @@ import FormLabel from './components/FormLabel'
 import FormTextInput from './components/FormTextInput'
 import FormSubmit from './components/FormSubmit'
 import ErrorMessage from './components/ErrorMessage'
-import { Dropdown } from "react-bootstrap"
+import { Dropdown } from 'react-bootstrap'
 
-export default function BasicInfo({ setFirstName, setLastName, setDiet, onSubmit }) {
+export default function BasicInfo({
+  setFirstName,
+  setLastName,
+  setDiet,
+  onSubmit,
+}) {
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
   const [dropValue, setDropValue] = React.useState('none')
 
-  const values = ["none", "vegetarian", 'vegan', "Halal/Kosher"]
+  const values = ['none', 'vegetarian', 'vegan', 'Halal/Kosher']
 
   function validation(args) {}
   const submit = event => {
@@ -22,8 +27,8 @@ export default function BasicInfo({ setFirstName, setLastName, setDiet, onSubmit
   }
 
   const changeItem = item => {
-    setDropValue(item);
-    setDiet(item);
+    setDropValue(item)
+    setDiet(item)
   }
   return (
     <FormFieldHeading>
@@ -35,17 +40,37 @@ export default function BasicInfo({ setFirstName, setLastName, setDiet, onSubmit
         <FormLabel htmlFor='last_name' text='Last Name'></FormLabel>
         <FormTextInput id='last_name' setValue={setLastName}></FormTextInput>
       </FormField>
-      
+
       <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
+        <Dropdown.Toggle variant='success' id='dropdown-basic'>
           {dropValue}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item onClick={() => changeItem(values[0])} href="#/action-1">{values[0]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[1])} href="#/action-1">{values[1]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[2])} href="#/action-2">{values[2]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => changeItem(values[3])} href="#/action-3">{values[3]}</Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => changeItem(values[0])}
+            href='#/action-1'
+          >
+            {values[0]}
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => changeItem(values[1])}
+            href='#/action-1'
+          >
+            {values[1]}
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => changeItem(values[2])}
+            href='#/action-2'
+          >
+            {values[2]}
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => changeItem(values[3])}
+            href='#/action-3'
+          >
+            {values[3]}
+          </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       <FormSubmit
@@ -54,9 +79,11 @@ export default function BasicInfo({ setFirstName, setLastName, setDiet, onSubmit
         isLoading={false}
         isDisabled={isDisabled}
         loadingText={false}
-        submitText={"next"}
+        submitText={'next'}
         completeText='Complete'
-      >Next</FormSubmit>
+      >
+        Next
+      </FormSubmit>
       {errorLabel !== '' && <ErrorMessage>errorLabel</ErrorMessage>}
     </FormFieldHeading>
   )
