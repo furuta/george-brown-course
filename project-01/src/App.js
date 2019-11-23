@@ -20,6 +20,10 @@ export default function App() {
   const [province, setProvince] = React.useState(
     localStorage.getItem('province') || '',
   )
+  const [paymentMethod, setPaymentMethod] = React.useState(
+    localStorage.getItem('paymentMethod') || '',
+  )
+  const [terms, setTerms] = React.useState(false)
 
   const [isSaving, setIsSaving] = React.useState(false)
   const saveData = event => {
@@ -76,6 +80,7 @@ export default function App() {
     localStorage.setItem('diet', diet)
     localStorage.setItem('city', city)
     localStorage.setItem('province', province)
+    localStorage.setItem('paymentMethod', paymentMethod)
   })
 
   const formSelect = () => {
@@ -107,6 +112,8 @@ export default function App() {
       return (
         <PaymentInfo
           onSubmit={saveData}
+          setPaymentMethod={setPaymentMethod}
+          setTerms={setTerms}
           isSaving={isSaving}
           isOffline={!isOnline}
         />

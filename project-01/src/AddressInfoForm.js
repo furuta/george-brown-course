@@ -18,6 +18,7 @@ export default function AddressInfo({
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
   const [dropValue, setDropValue] = React.useState(provinceValue || 'select')
+  const [cityValueFlag, setCityValueFlag] = React.useState(false)
 
   const changeItem = item => {
     setDropValue(item)
@@ -41,11 +42,29 @@ export default function AddressInfo({
     'Yukon Territory',
   ]
 
+  const onCityChange = event => {
+    setCity(event.target.value)
+    if (event.target.value !== '') {
+      setCityValueFlag(true)
+    } else {
+      setCityValueFlag(false)
+    }
+  }
+
+  const check = () => {
+    if (cityValueFlag === true && dropValue !== 'select') {
+      return false
+    } else {
+      return true
+    }
+  }
+
   return (
     <FormFieldHeading>
       <FormField>
         <FormLabel htmlFor='city' text='City'></FormLabel>
         <FormTextInput
+          inChange={onCityChange}
           id='city'
           setValue={setCity}
           value={cityValue}
@@ -147,7 +166,7 @@ export default function AddressInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={isDisabled || isOffline}
+        isDisabled={check || isDisabled || isOffline}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'

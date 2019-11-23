@@ -7,6 +7,7 @@ export default function FormTextInput({
   value,
   setValue,
   type,
+  inChange
 }) {
   const onChange = event => setValue(event.target.value)
 
@@ -15,7 +16,7 @@ export default function FormTextInput({
       id={id}
       placeholder={placeholder}
       value={value}
-      onChange={onChange}
+      onChange={inChange}
       type={type}
     />
   )

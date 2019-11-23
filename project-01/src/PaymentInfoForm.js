@@ -8,8 +8,8 @@ import ErrorMessage from './components/ErrorMessage'
 import { Dropdown } from 'react-bootstrap'
 
 export default function PaymentInfo({
-  setCity,
-  setProvince,
+  setPaymentMethod,
+  setTerms,
   onSubmit,
   isSaving,
   isOffline,
@@ -17,45 +17,58 @@ export default function PaymentInfo({
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [errorLabel, setErrorLabel] = React.useState('')
   const [dropValue, setDropValue] = React.useState('select')
+  const [payment, setPayment] = React.useState('')
+  const [agreed, setAgreed] = React.useState(false)
 
-  const changeItem = item => {
-    setDropValue(item)
-    setProvince(item)
+  const agreeTerms = () => {
+    agreed ? setAgreed(false) : setAgreed(true)
+    agreed ? setTerms(false) : setTerms(true)
   }
 
-  const values = [
-    'select',
-    'Alberta',
-    'British Colombia',
-    'Manitoba',
-    'New Brunswick',
-    'Newfoundland',
-    'Nova Scotia',
-    'North West Territories',
-    'Nunavut',
-    'Ontario',
-    'Prince Edward Island',
-    'Quebec',
-    'Saskatchewan',
-    'Yukon Territory',
-  ]
+  const paymentType = type => {
+    setPayment(type)
+    setPaymentMethod(type)
+  }
+
+  const check = () => {
+    if (agreed === true && payment !== '') {
+      return false
+    } else {
+      return true
+    }
+  }
 
   return (
     <FormFieldHeading>
       <div>
-        <input type='radio' value='bitcoin' />
+        <input
+          onChange={() => paymentType('bitcoin')}
+          type='radio'
+          value='bitcoin'
+          name='payment'
+        />
         Bitcoin
       </div>
       <div>
-        <input type='radio' value='Paypal' />
+        <input
+          onChange={() => paymentType('Paypal')}
+          type='radio'
+          value='Paypal'
+          name='payment'
+        />
         Paypal
       </div>
       <div>
-        <input type='radio' value='Credit Card' />
+        <input
+          onChange={() => paymentType('Credit Card')}
+          type='radio'
+          value='Credit Card'
+          name='payment'
+        />
         Credit Card
       </div>
       <div>
-        <input type='checkbox' value={false} />
+        <input onChange={agreeTerms} type='checkbox' value={agreed} />
         Agree to Terms and Conditions
       </div>
 
@@ -63,7 +76,7 @@ export default function PaymentInfo({
         onClick={onSubmit}
         isComplete={false}
         isLoading={false}
-        isDisabled={isDisabled || isSaving || isOffline}
+        isDisabled={check || isSaving || isOffline}
         loadingText={false}
         submitText={'next'}
         completeText='Complete'
